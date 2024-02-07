@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 
+#include "Tests.h"
 #include "FileManager.h"
 #include "MenuOption.h"
 #include "Menu.h"
@@ -9,11 +10,15 @@ using namespace std;
 
 int main()
 {
+	// Initialize the file manager
 	FileManager fileManager;
 	fileManager.initializeFiles();
 
+	// Initialize the menu options
 	vector<MenuOption> items = {
-		MenuOption(1, "Print files",  [&fileManager]() { fileManager.printFiles(); }),
+		MenuOption(1, "Print files",  [&fileManager]() {
+			fileManager.printFiles();
+		}),
 		MenuOption(2, "Get alphabetically sorted files",  [&fileManager]() {
 			vector<File> sortedFiles = fileManager.getSortedFiles();
 
@@ -29,13 +34,15 @@ int main()
 
 			FileManager::printVectorOfFiles(newFiles);
 		}),
-		MenuOption(5, "Run tests",  []() { cout << "Running tests.\n"; }),
+		MenuOption(5, "Run tests",  []() { testMenuOptionPrint(); }),
 		MenuOption(6, "Exit",  []() { cout << "Exitting now...\n"; })
 	};
 
+	// Initialize the menu
 	Menu menu(items);
 	menu.display();
 
+	// Get the user's choice
 	cout << "\n\nEnter your choice: ";
 	int choice;
 	cin >> choice;

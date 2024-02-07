@@ -32,25 +32,25 @@ vector<File> FileManager::getSortedFiles() {
 }
 
 vector<File> FileManager::getFilesAboveSize(int size) {
-	vector<File> files;
+	vector<File> newFiles;
 
 	for (File file : this->files)
 	{
-		if (file.getSize() > size) files.push_back(file);
+		if (file.getSize() > size) newFiles.push_back(file);
 	}
 
-	return files;
+	return newFiles;
 }
 
 vector<File> FileManager::getFilesAboveUsage(int usage) {
-	vector<File> files;
+	vector<File> newFiles;
 
 	for (File file : this->files)
 	{
-		if (file.getUsage() > usage) files.push_back(file);
+		if (file.getUsage() > usage) newFiles.push_back(file);
 	}
 
-	return files;
+	return newFiles;
 }
 
 void FileManager::printVectorOfFiles(vector<File> vectorFiles) {

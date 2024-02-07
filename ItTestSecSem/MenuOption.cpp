@@ -10,4 +10,3 @@ void MenuOption::print() {
 void MenuOption::callAction() {
 	this->action();
 }
-
