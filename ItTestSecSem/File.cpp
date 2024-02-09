@@ -16,6 +16,10 @@ int File::getUsage() {
 	return this->usage;
 }
 
+int File::getId() {
+	return this->id;
+}
+
 void File::printFile() {
 	cout << this->id << ". " << this->title << '\t' << this->createdAt << '\t';
 	cout << this->size << " bytes\t" << this->usage << endl;

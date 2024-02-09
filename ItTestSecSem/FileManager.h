@@ -20,6 +20,8 @@ public:
 	 */
 	void initializeFiles();
 
+	void setFiles(const vector<File>& files);
+
 	/**
 	 * \brief Prints out collection of files.
 	 *

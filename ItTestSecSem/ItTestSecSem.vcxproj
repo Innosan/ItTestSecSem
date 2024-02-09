@@ -129,11 +129,11 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="FilterFilesFunctionsTests.cpp" />
     <ClCompile Include="inputs.cpp" />
     <ClCompile Include="ItTestSecSem.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuOption.cpp" />
-    <ClCompile Include="MenuOptionTests.cpp" />
     <ClCompile Include="WelcomeMessage.cpp" />
   </ItemGroup>
   <ItemGroup>

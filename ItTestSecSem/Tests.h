@@ -1,3 +1,5 @@
 #pragma once
 
-void testMenuOptionPrint();
+void testGetSortedFiles();
+void testGetFilesAboveSize();
+void testGetFilesAboveUsage();

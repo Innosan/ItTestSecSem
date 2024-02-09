@@ -22,9 +22,10 @@ public:
 		: id(id), title(title), createdAt(createdAt), size(size), usage(usage) {}
 
 	// getters
-	string getTitle();
+	int getId();
 	int getSize();
 	int getUsage();
+	string getTitle();
 
 	//showers
 	void printFile();

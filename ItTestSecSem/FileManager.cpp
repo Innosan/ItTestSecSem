@@ -18,6 +18,7 @@ void FileManager::printFiles() {
 
 	cout << "\nTotal files: " << this->files.size() << "\n\n";
 }
+
 void FileManager::addFile(const File& file) {
 	this->files.push_back(file);
 
@@ -28,9 +29,13 @@ vector<File> FileManager::getSortedFiles() {
 	vector<File> sortedFiles = this->files;
 
 	sort(sortedFiles.begin(), sortedFiles.end(), [](File& a, File& b) {
-		return a.getTitle() < b.getTitle();
+		for (size_t i = 0; i < std::min(a.getTitle().size(), b.getTitle().size()); ++i) {
+			// Compare characters, treating whitespaces as equal
+			if (a.getTitle()[i] != b.getTitle()[i]) {
+				return a.getTitle()[i] < b.getTitle()[i];
+			}
 		}
-	);
+		});
 
 	return sortedFiles;
 }
@@ -93,4 +98,8 @@ void FileManager::initializeFiles() {
 	);
 
 	this->addFile(file);
+}
+
+void FileManager::setFiles(const vector<File>& newFiles) {
+	this->files = newFiles;
 }

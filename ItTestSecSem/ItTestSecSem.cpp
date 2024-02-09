@@ -42,7 +42,7 @@ int main()
 
 			FileManager::printVectorOfFiles(newFiles);
 		}),
-		MenuOption(5, "Run tests",  []() { testMenuOptionPrint(); }),
+		MenuOption(5, "Run tests",  []() { testGetSortedFiles(); }),
 		MenuOption(6, "Exit",  []() { exit(EXIT_SUCCESS); })
 	};
 
