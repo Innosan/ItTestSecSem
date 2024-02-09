@@ -9,10 +9,14 @@
 using namespace std;
 
 void FileManager::printFiles() {
+	cout << "\n";
+
 	for (File file : this->files)
 	{
 		file.printFile();
 	}
+
+	cout << "\nTotal files: " << this->files.size() << "\n\n";
 }
 void FileManager::addFile(const File& file) {
 	this->files.push_back(file);
@@ -54,10 +58,14 @@ vector<File> FileManager::getFilesAboveUsage(int usage) {
 }
 
 void FileManager::printVectorOfFiles(vector<File> vectorFiles) {
+	cout << "\n";
+
 	for (File file : vectorFiles)
 	{
 		file.printFile();
 	}
+
+	cout << "\n\n";
 };
 
 void FileManager::initializeFiles() {

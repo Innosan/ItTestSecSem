@@ -1,57 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
+    <Filter Include="Utility">
+      <UniqueIdentifier>{7f4b1d82-1a9a-4380-89fd-023aad79f462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков">
+    <Filter Include="Headers">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
+    <Filter Include="Tests">
+      <UniqueIdentifier>{f1f681c9-12ce-4e43-aa5c-9bdef27cad44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Models">
+      <UniqueIdentifier>{a3b3a52a-b3c8-4d82-9a70-5be67dd042aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Models">
+      <UniqueIdentifier>{ae365eeb-ef10-4704-8abb-307b2be4b642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Menu">
+      <UniqueIdentifier>{bc3bde35-c585-44e8-a096-d16a7c1b5392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Menu">
+      <UniqueIdentifier>{9f00a186-9398-4bc3-9370-ac649d1886fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Тесты">
-      <UniqueIdentifier>{f1f681c9-12ce-4e43-aa5c-9bdef27cad44}</UniqueIdentifier>
+    <Filter Include="Utility\Inputs">
+      <UniqueIdentifier>{7b4defca-a0ad-481c-9c64-bec9f59a2de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Welcome">
+      <UniqueIdentifier>{9e9d1bc1-4a68-4b31-9f2f-973586c33e47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ItTestSecSem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="FileManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuOption.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="MenuOptionTests.cpp">
-      <Filter>Тесты</Filter>
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuOption.cpp">
+      <Filter>Source\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="inputs.cpp">
+      <Filter>Utility\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="WelcomeMessage.cpp">
+      <Filter>Utility\Welcome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tests.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="File.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Headers\Models</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Headers\Models</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Headers\Menu</Filter>
     </ClInclude>
     <ClInclude Include="MenuOption.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Headers\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Tests.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="inputs.h">
+      <Filter>Utility\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="WelcomeMessage.h">
+      <Filter>Utility\Welcome</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

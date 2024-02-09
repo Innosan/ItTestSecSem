@@ -5,11 +5,19 @@
 #include "FileManager.h"
 #include "MenuOption.h"
 #include "Menu.h"
+#include "WelcomeMessage.h"
+
+#include "inputs.h"
 
 using namespace std;
 
 int main()
 {
+	WelcomeMessage::printWelcomeMessage(
+		Student("Fomin Mikhail Vital\'evich", 4307, 25),
+		Task(1, 1, "Develop a class for the specified subject area.Implement data access using the Set, Get, Show. Provide for necessary checks of source data.")
+	);
+
 	// Initialize the file manager
 	FileManager fileManager;
 	fileManager.initializeFiles();
@@ -30,24 +38,29 @@ int main()
 			FileManager::printVectorOfFiles(newFiles);
 		}),
 		MenuOption(4, "Get files above some usage",  [&fileManager]() {
-			vector<File> newFiles = fileManager.getFilesAboveUsage(3);
+			vector<File> newFiles = fileManager.getFilesAboveUsage(10);
 
 			FileManager::printVectorOfFiles(newFiles);
 		}),
 		MenuOption(5, "Run tests",  []() { testMenuOptionPrint(); }),
-		MenuOption(6, "Exit",  []() { cout << "Exitting now...\n"; })
+		MenuOption(6, "Exit",  []() { exit(EXIT_SUCCESS); })
 	};
 
 	// Initialize the menu
 	Menu menu(items);
-	menu.display();
 
-	// Get the user's choice
-	cout << "\n\nEnter your choice: ";
-	int choice;
-	cin >> choice;
+	int pickedItem = 0;
 
-	menu.choose(choice);
+	do {
+		// Display the menu
+		menu.display();
+
+		// Get the user's choice
+		cout << "Choose an option: ";
+		pickedItem = getIntUserInput();
+
+		menu.choose(pickedItem);
+	} while (pickedItem != 6);
 
 	return EXIT_SUCCESS;
 }

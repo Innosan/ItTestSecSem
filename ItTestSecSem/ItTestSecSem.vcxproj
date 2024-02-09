@@ -129,17 +129,21 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="inputs.cpp" />
     <ClCompile Include="ItTestSecSem.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MenuOptionTests.cpp" />
+    <ClCompile Include="WelcomeMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="inputs.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Tests.h" />
+    <ClInclude Include="WelcomeMessage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
