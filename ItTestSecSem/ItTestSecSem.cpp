@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 
-#include "Tests.h"
+#include "testMain.h"
 #include "FileManager.h"
 #include "MenuOption.h"
 #include "Menu.h"
@@ -15,34 +15,52 @@ int main()
 {
 	WelcomeMessage::printWelcomeMessage(
 		Student("Fomin Mikhail Vital\'evich", 4307, 25),
-		Task(1, 1, "Develop a class for the specified subject area.Implement data access using the Set, Get, Show. Provide for necessary checks of source data.")
+		Task(
+			1,
+			11,
+			"Develop a class for the specified subject area. Implement data access using the Set, Get, Show. Provide for necessary checks of source data."
+		)
 	);
 
 	// Initialize the file manager
-	FileManager fileManager;
-	fileManager.initializeFiles();
+	std::unique_ptr<FileManager> fileManager = std::make_unique<FileManager>();
+	fileManager->initializeFiles();
 
 	// Initialize the menu options
 	vector<MenuOption> items = {
 		MenuOption(1, "Print files",  [&fileManager]() {
-			fileManager.printFiles();
+			fileManager->printFiles();
 		}),
 		MenuOption(2, "Get alphabetically sorted files",  [&fileManager]() {
-			vector<File> sortedFiles = fileManager.getSortedFiles();
+			vector<File> sortedFiles = fileManager->getSortedFiles();
 
 			FileManager::printVectorOfFiles(sortedFiles);
 		}),
 		MenuOption(3, "Get files above some size",  [&fileManager]() {
-			vector<File> newFiles = fileManager.getFilesAboveSize(550);
+			int userSize = getIntUserInput("Input desired size: ");
+			vector<File> newFiles = fileManager->getFilesAboveSize(userSize);
 
+			if (newFiles.empty()) {
+				cout << "No files found\n";
+				return;
+			}
+
+			cout << "Files above " << userSize << " size" << endl;
 			FileManager::printVectorOfFiles(newFiles);
 		}),
 		MenuOption(4, "Get files above some usage",  [&fileManager]() {
-			vector<File> newFiles = fileManager.getFilesAboveUsage(10);
+			int userUsage = getIntUserInput("Input desired usage:");
+			vector<File> newFiles = fileManager->getFilesAboveUsage(userUsage);
 
+			if (newFiles.empty()) {
+				cout << "No files found\n";
+				return;
+			}
+
+			cout << "Files above " << userUsage << " usage" << endl;
 			FileManager::printVectorOfFiles(newFiles);
 		}),
-		MenuOption(5, "Run tests",  []() { testGetSortedFiles(); }),
+		MenuOption(5, "Run tests",  []() { runTests(); }),
 		MenuOption(6, "Exit",  []() { exit(EXIT_SUCCESS); })
 	};
 
@@ -55,9 +73,7 @@ int main()
 		// Display the menu
 		menu.display();
 
-		// Get the user's choice
-		cout << "Choose an option: ";
-		pickedItem = getIntUserInput();
+		pickedItem = getIntUserInput("Choose an option: ");
 
 		menu.choose(pickedItem);
 	} while (pickedItem != 6);

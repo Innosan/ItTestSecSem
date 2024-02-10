@@ -129,11 +129,14 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="FilterFilesFunctionsTests.cpp" />
+    <ClCompile Include="testFunctions.cpp" />
+    <ClCompile Include="TestCase.cpp" />
+    <ClCompile Include="testMain.cpp" />
     <ClCompile Include="inputs.cpp" />
     <ClCompile Include="ItTestSecSem.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuOption.cpp" />
+    <ClCompile Include="testUtils.cpp" />
     <ClCompile Include="WelcomeMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +145,10 @@
     <ClInclude Include="inputs.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuOption.h" />
-    <ClInclude Include="Tests.h" />
+    <ClInclude Include="TestCase.h" />
+    <ClInclude Include="testFunctions.h" />
+    <ClInclude Include="testMain.h" />
+    <ClInclude Include="testUtils.h" />
     <ClInclude Include="WelcomeMessage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

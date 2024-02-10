@@ -1,7 +1,9 @@
 #include <iostream>
 
-int getIntUserInput() {
+int getIntUserInput(std::string welcomeMessage) {
 	int input = 0;
+
+	std::cout << welcomeMessage << std::endl;
 
 	do {
 		std::cin >> input;

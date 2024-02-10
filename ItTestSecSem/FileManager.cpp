@@ -35,6 +35,9 @@ vector<File> FileManager::getSortedFiles() {
 				return a.getTitle()[i] < b.getTitle()[i];
 			}
 		}
+
+		// Titles are equal up to this point, use length for additional sorting
+		return a.getTitle().size() < b.getTitle().size();
 		});
 
 	return sortedFiles;
@@ -101,5 +104,7 @@ void FileManager::initializeFiles() {
 }
 
 void FileManager::setFiles(const vector<File>& newFiles) {
+	this->files.clear();
+
 	this->files = newFiles;
 }

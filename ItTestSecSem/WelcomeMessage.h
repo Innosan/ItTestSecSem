@@ -21,6 +21,7 @@ public:
 	int testNumber;
 
 	std::string description;
+	std::string testDescription;
 
 	Task(int number, int testNumber, std::string description) :
 		number(number), testNumber(testNumber), description(description) {}

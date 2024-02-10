@@ -17,7 +17,7 @@ class File
 	int usage;
 
 public:
-	// default constructor
+	// constructor
 	File(int id, std::string title, std::string createdAt, int size, int usage)
 		: id(id), title(title), createdAt(createdAt), size(size), usage(usage) {}
 
@@ -27,7 +27,7 @@ public:
 	int getUsage();
 	string getTitle();
 
-	//showers
+	// showers
 	void printFile();
 };
 
