@@ -12,7 +12,7 @@ bool runVectorCheck(vector<File>& vectorToCheck, vector<File>& expectedVector) {
 		int actualId = vectorToCheck[i].getId();
 		int expectedId = expectedVector[i].getId();
 
-		cout << "Actual: " << actualId << " Expected: " << expectedId << endl;
+		// cout << "Actual: " << actualId << " Expected: " << expectedId << endl;
 
 		if (actualId != expectedId) {
 			std::cerr << "\n\nError: Mismatch at index " << i << ": "

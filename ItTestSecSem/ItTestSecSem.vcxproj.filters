@@ -12,9 +12,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Tests">
-      <UniqueIdentifier>{f1f681c9-12ce-4e43-aa5c-9bdef27cad44}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Models">
       <UniqueIdentifier>{a3b3a52a-b3c8-4d82-9a70-5be67dd042aa}</UniqueIdentifier>
     </Filter>

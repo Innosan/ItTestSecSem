@@ -2,6 +2,8 @@
 #include "MenuOption.h"
 
 void Menu::display() {
+	std::cout << "\n";
+
 	for (MenuOption item : this->options) {
 		item.print();
 	}
