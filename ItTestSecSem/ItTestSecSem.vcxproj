@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="files.cpp" />
     <ClCompile Include="testFunctions.cpp" />
     <ClCompile Include="TestCase.cpp" />
     <ClCompile Include="testMain.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="File.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="files.h" />
     <ClInclude Include="inputs.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuOption.h" />
@@ -150,6 +152,9 @@
     <ClInclude Include="testMain.h" />
     <ClInclude Include="testUtils.h" />
     <ClInclude Include="WelcomeMessage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\demoFiles.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

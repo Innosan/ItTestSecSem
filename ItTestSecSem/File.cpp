@@ -2,8 +2,6 @@
 
 #include "File.h"
 
-using namespace std;
-
 string File::getTitle() {
 	return this->title;
 }

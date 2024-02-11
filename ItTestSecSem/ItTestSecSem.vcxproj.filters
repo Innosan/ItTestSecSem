@@ -75,6 +75,9 @@
     <ClCompile Include="testMain.cpp">
       <Filter>Utility\Testing</Filter>
     </ClCompile>
+    <ClCompile Include="files.cpp">
+      <Filter>Utility\Inputs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h">
@@ -107,5 +110,11 @@
     <ClInclude Include="testMain.h">
       <Filter>Headers\Testing</Filter>
     </ClInclude>
+    <ClInclude Include="files.h">
+      <Filter>Utility\Inputs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\demoFiles.csv" />
   </ItemGroup>
 </Project>

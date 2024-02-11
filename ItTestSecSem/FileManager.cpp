@@ -6,8 +6,6 @@
 #include "FileManager.h"
 #include "File.h"
 
-using namespace std;
-
 void FileManager::printFiles() {
 	cout << "\n";
 
@@ -22,7 +20,7 @@ void FileManager::printFiles() {
 void FileManager::addFile(const File& file) {
 	this->files.push_back(file);
 
-	//cout << "File added!\n";
+	cout << "File added!\n";
 }
 
 vector<File> FileManager::getSortedFiles() {

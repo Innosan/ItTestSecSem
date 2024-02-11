@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include "MenuOption.h"
 
@@ -14,9 +15,17 @@ class Menu
 	vector<MenuOption> options;
 
 public:
-	// constructor
-	Menu(const std::vector<MenuOption>& options) : options(options) {}
+	enum optionsIds {
+		PRINT_FILES = 1,
+		SORT_FILES,
+		FILES_ABOVE_SIZE,
+		FILES_ABOVE_USAGE,
+		RUN_TESTS,
+		READ_FROM_FILE,
+		EXIT,
+	};
 
+	void initializeMenu(std::unique_ptr<FileManager>& fileManager);
 	void display();
 
 	/**
