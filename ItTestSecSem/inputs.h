@@ -6,4 +6,4 @@
  *
  * \return int user input
  */
-int getIntUserInput(std::string welcomeMessage);
+int getIntUserInput(std::string welcomeMessage, int min = 0, int max = INT_MAX);

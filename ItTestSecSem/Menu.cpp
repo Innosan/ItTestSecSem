@@ -14,6 +14,18 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 			fileManager->printFiles();
 		}),
 
+		// Add file
+		MenuOption(this->ADD_FILE, "Add file",  [&fileManager]() {
+			File file = File::getFileFromInput();
+
+			fileManager->addFile(file);
+		}),
+
+		// Export to file
+		MenuOption(this->EXPORT_TO_FILE, "Export to file",  [&fileManager]() {
+			exportToFile(fileManager->getFiles());
+		}),
+
 		// Sort files
 		MenuOption(Menu::optionsIds::SORT_FILES, "Get alphabetically sorted files",  [&fileManager]() {
 			vector<File> sortedFiles = fileManager->getSortedFiles();
@@ -53,17 +65,17 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 		MenuOption(this->RUN_TESTS , "Run tests",  []() { runTests(); }),
 
 		// Read from file
-		MenuOption(this->READ_FROM_FILE, "Read from file",  []() {
+		MenuOption(this->READ_FROM_FILE, "Read from file",  [&fileManager]() {
 			string filename = "resources/demoFiles.csv";
-			vector<File> files = getFilesFromFile(filename);
+			vector<File> filesFromFile = getFilesFromFile(filename);
 
-			if (files.empty()) {
+			if (filesFromFile.empty()) {
 				cerr << "Error reading files from file." << endl;
 			}
+			else {
+				fileManager->setFiles(filesFromFile);
 
-			cout << "Files:\n";
-			for (File& gigaFile : files) {
-				gigaFile.printFile();
+				cout << "Successfull read from file!" << endl;
 			}
 		}),
 
@@ -83,10 +95,5 @@ void Menu::display() {
 }
 
 void Menu::choose(int index) {
-	if (index >= 1 && index <= this->options.size()) {
-		this->options[index - 1].callAction();
-	}
-	else {
-		std::cout << "Invalid choice.\n";
-	}
+	this->options[index - 1].callAction();
 }

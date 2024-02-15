@@ -22,7 +22,6 @@ int main()
 
 	// Initialize the file manager
 	std::unique_ptr<FileManager> fileManager = std::make_unique<FileManager>();
-	fileManager->initializeFiles();
 
 	// Initialize the menu
 	Menu menu;
@@ -33,7 +32,7 @@ int main()
 	do {
 		menu.display();
 
-		pickedItem = getIntUserInput("Choose an option: ");
+		pickedItem = getIntUserInput("Choose an option: ", Menu::optionsIds::PRINT_FILES - 1, Menu::optionsIds::EXIT + 1);
 
 		menu.choose(pickedItem);
 	} while (pickedItem != Menu::optionsIds::EXIT);

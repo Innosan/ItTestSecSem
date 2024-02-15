@@ -14,13 +14,8 @@ class FileManager
 	vector<File> files;
 
 public:
-	/**
-	 * \brief Initialize a collection with basic files.
-	 *
-	 */
-	void initializeFiles();
-
 	void setFiles(const vector<File>& files);
+	vector<File> getFiles();
 
 	/**
 	 * \brief Prints out collection of files.

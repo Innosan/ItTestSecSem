@@ -7,7 +7,7 @@
 #include "File.h"
 
 void FileManager::printFiles() {
-	cout << "\n";
+	cout << endl;
 
 	for (File file : this->files)
 	{
@@ -74,35 +74,12 @@ void FileManager::printVectorOfFiles(vector<File> vectorFiles) {
 	cout << "\n\n";
 };
 
-void FileManager::initializeFiles() {
-	for (auto i = 0; i < 5; i++)
-	{
-		auto fileId = i + 1;
-
-		File file(
-			fileId,
-			to_string(fileId) + "File",
-			"Created " + to_string(fileId) + " of February",
-			512 + fileId * 12,
-			fileId * 4
-		);
-
-		this->addFile(file);
-	}
-
-	File file(
-		20,
-		"0File",
-		"Created 4 of February",
-		512 * 12,
-		4 * 4
-	);
-
-	this->addFile(file);
-}
-
 void FileManager::setFiles(const vector<File>& newFiles) {
 	this->files.clear();
 
 	this->files = newFiles;
 }
+
+vector<File> FileManager::getFiles() {
+	return this->files;
+};

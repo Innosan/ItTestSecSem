@@ -26,6 +26,9 @@ public:
 	int getSize();
 	int getUsage();
 	string getTitle();
+	string getCreatedAt();
+
+	static File getFileFromInput();
 
 	// showers
 	void printFile();

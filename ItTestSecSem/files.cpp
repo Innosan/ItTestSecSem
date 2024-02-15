@@ -2,9 +2,29 @@
 #include <fstream>
 #include <sstream>
 
+#include <vector>
+#include "File.h"
 #include "files.h"
+#include <regex>
 
 using namespace std;
+
+// Function to check if a file exists
+bool fileExists(const std::string& filename) {
+	std::ifstream file(filename);
+	return file.is_open();
+}
+
+// Function to prompt user for overwrite confirmation
+bool confirmOverwrite(const std::string& filename) {
+	std::cout << "File '" << filename << "' already exists." << std::endl;
+	std::cout << "Do you want to overwrite it? (y/n): ";
+
+	char answer;
+	std::cin >> answer;
+
+	return std::tolower(answer) == 'y';
+}
 
 vector<File> getFilesFromFile(string fileName) {
 	vector<File> files;
@@ -64,4 +84,50 @@ vector<File> getFilesFromFile(string fileName) {
 
 	inputFile.close();
 	return files;
+};
+
+bool validateFileInput(string fileName, string path) {
+	regex fileNameRegex("^[a-zA-Z0-9_.]+$");
+	regex pathRegex("((?:[^/]*/)*)(.*)");
+
+	return regex_match(fileName, fileNameRegex) && regex_match(path, pathRegex);
+}
+
+void exportToFile(vector<File> filesToExport) {
+	string fileName = "";
+
+	string path = "";
+
+	do {
+		cout << "Input file name: ";
+		cin >> fileName;
+
+		cout << "Input full path: \n";
+		cin >> path;
+
+	} while (!validateFileInput(fileName, path));
+
+
+	string fullPath = path + fileName + ".csv";
+
+	// Check if file exists and prompt user for overwrite
+	if (fileExists(fullPath)) {
+		if (!confirmOverwrite(fullPath)) {
+			std::cerr << "Error: File already exists and user chose not to overwrite." << std::endl;
+			return;
+		}
+	}
+
+	// Write data to file
+	ofstream file(path + fileName + ".csv");
+	if (file.is_open()) {
+		for (File& exportFile : filesToExport) {
+			file << exportFile.getId() << "," << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
+				<< exportFile.getSize() << "," << exportFile.getUsage() << "\n";
+		}
+		file.close();
+	}
+	else {
+		std::cerr << "Error opening file for writing." << std::endl;
+	}
 };

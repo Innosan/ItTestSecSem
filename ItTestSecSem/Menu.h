@@ -17,6 +17,8 @@ class Menu
 public:
 	enum optionsIds {
 		PRINT_FILES = 1,
+		ADD_FILE,
+		EXPORT_TO_FILE,
 		SORT_FILES,
 		FILES_ABOVE_SIZE,
 		FILES_ABOVE_USAGE,
