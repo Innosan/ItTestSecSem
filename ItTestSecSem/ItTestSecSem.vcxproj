@@ -138,7 +138,6 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="testUtils.cpp" />
-    <ClCompile Include="WelcomeMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h" />
@@ -151,7 +150,6 @@
     <ClInclude Include="testFunctions.h" />
     <ClInclude Include="testMain.h" />
     <ClInclude Include="testUtils.h" />
-    <ClInclude Include="WelcomeMessage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\demoFiles.csv" />

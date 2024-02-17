@@ -142,4 +142,6 @@ void runTests() {
 		runSizeTest(fileManager, testCase.filesToTest, testCase.expectedSizeResult, testCase.title, testCase.sizeToTest);
 		runUsageTest(fileManager, testCase.filesToTest, testCase.expectedUsageResult, testCase.title, testCase.usageToTest);
 	}
+
+	cout << "Testing successfull!";
 }

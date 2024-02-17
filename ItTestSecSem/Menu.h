@@ -30,6 +30,8 @@ public:
 	void initializeMenu(std::unique_ptr<FileManager>& fileManager);
 	void display();
 
+	static void printWelcomeMessage();
+
 	/**
 	 * \brief Calling a menu action.
 	 *

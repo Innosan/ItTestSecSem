@@ -31,9 +31,6 @@
     <Filter Include="Utility\Inputs">
       <UniqueIdentifier>{7b4defca-a0ad-481c-9c64-bec9f59a2de8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility\Welcome">
-      <UniqueIdentifier>{9e9d1bc1-4a68-4b31-9f2f-973586c33e47}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Testing">
       <UniqueIdentifier>{bb530e45-eeb1-4958-8f30-11ff7a98cd7f}</UniqueIdentifier>
     </Filter>
@@ -59,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="inputs.cpp">
       <Filter>Utility\Inputs</Filter>
-    </ClCompile>
-    <ClCompile Include="WelcomeMessage.cpp">
-      <Filter>Utility\Welcome</Filter>
     </ClCompile>
     <ClCompile Include="TestCase.cpp">
       <Filter>Source</Filter>
@@ -94,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="inputs.h">
       <Filter>Utility\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="WelcomeMessage.h">
-      <Filter>Utility\Welcome</Filter>
     </ClInclude>
     <ClInclude Include="TestCase.h">
       <Filter>Headers\Testing</Filter>

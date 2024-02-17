@@ -7,6 +7,14 @@
 #include "Menu.h"
 #include "MenuOption.h"
 
+bool promptUserForExport() {
+	cout << "Export results to file? (1/0)" << endl;
+
+	bool isAgreed = getIntUserInput("", -1, 2);
+
+	return isAgreed;
+}
+
 void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 	vector<MenuOption> items = {
 		// Print files
@@ -23,14 +31,28 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 		// Export to file
 		MenuOption(this->EXPORT_TO_FILE, "Export to file",  [&fileManager]() {
-			exportToFile(fileManager->getFiles());
+			vector<File> filesToExport = fileManager->getFiles();
+
+			if (filesToExport.size() == 0) cout << "No files to export!";
+			else exportToFile(filesToExport);
 		}),
 
 		// Sort files
 		MenuOption(Menu::optionsIds::SORT_FILES, "Get alphabetically sorted files",  [&fileManager]() {
 			vector<File> sortedFiles = fileManager->getSortedFiles();
+			if (sortedFiles.size() != 0) FileManager::printVectorOfFiles(sortedFiles);
+			else {
+				cout << "No files to sort";
+				return;
+			};
 
-			FileManager::printVectorOfFiles(sortedFiles);
+			bool isAgreed = promptUserForExport();
+
+			if (isAgreed && sortedFiles.size() != 0) exportToFile(sortedFiles);
+			else {
+				cout << "No files to export";
+				return;
+			};
 		}),
 
 		// Get files above some size
@@ -45,6 +67,11 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 			cout << "Files above " << userSize << " size" << endl;
 			FileManager::printVectorOfFiles(newFiles);
+
+			bool isAgreed = promptUserForExport();
+
+			if (isAgreed) exportToFile(newFiles);
+
 		}),
 
 		// Get files above some usage
@@ -59,6 +86,10 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 			cout << "Files above " << userUsage << " usage" << endl;
 			FileManager::printVectorOfFiles(newFiles);
+
+			bool isAgreed = promptUserForExport();
+
+			if (isAgreed) exportToFile(newFiles);
 		}),
 
 		// Run tests
@@ -97,3 +128,12 @@ void Menu::display() {
 void Menu::choose(int index) {
 	this->options[index - 1].callAction();
 }
+
+void Menu::printWelcomeMessage() {
+	cout << "Fomin Mikhail Vital\'evich, 4307, 25" << endl;
+	cout << "1, 11, Develop a class for the specified subject area. Implement data access using the Set, Get, Show. Provide for necessary checks of source data." << endl << endl;
+
+	cout << "File: file name, size, creation date, number of hits." << endl << "Create an array of objects.Realize the possibility of receiving:" << endl;
+	cout << "\t- a list of files arranged in alphabetical order" << endl << "\t- a list of files whose size exceeds the specified one" << endl;
+	cout << "\t- a list of files the number of accesses to which exceeds the specified number" << endl << endl;
+};
