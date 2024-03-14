@@ -97,7 +97,17 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 		// Read from file
 		MenuOption(this->READ_FROM_FILE, "Read from file",  [&fileManager]() {
-			string filename = "resources/demoFiles.csv";
+			bool isPathValid = false;
+			string filename = "";
+
+			while (!isPathValid) {
+				filename = getStringUserInput("Input full path to file: ");
+
+				if (isFilePathValid(filename)) {
+					isPathValid = true;
+				}
+			}
+
 			vector<File> filesFromFile = getFilesFromFile(filename);
 
 			if (filesFromFile.empty()) {

@@ -8,8 +8,6 @@ using namespace std;
  */
 class File
 {
-	int id;
-
 	string title;
 	string createdAt;
 
@@ -18,11 +16,10 @@ class File
 
 public:
 	// constructor
-	File(int id, std::string title, std::string createdAt, int size, int usage)
-		: id(id), title(title), createdAt(createdAt), size(size), usage(usage) {}
+	File(std::string title, std::string createdAt, int size, int usage)
+		: title(title), createdAt(createdAt), size(size), usage(usage) {}
 
 	// getters
-	int getId();
 	int getSize();
 	int getUsage();
 	string getTitle();
@@ -33,4 +30,3 @@ public:
 	// showers
 	void printFile();
 };
-

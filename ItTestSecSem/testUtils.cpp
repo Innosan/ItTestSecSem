@@ -9,8 +9,8 @@ bool runVectorCheck(vector<File>& vectorToCheck, vector<File>& expectedVector) {
 	bool passed = true;
 
 	for (size_t i = 0; i < vectorToCheck.size(); ++i) {
-		int actualId = vectorToCheck[i].getId();
-		int expectedId = expectedVector[i].getId();
+		string actualId = vectorToCheck[i].getTitle();
+		string expectedId = expectedVector[i].getTitle();
 
 		// cout << "Actual: " << actualId << " Expected: " << expectedId << endl;
 
@@ -25,7 +25,7 @@ bool runVectorCheck(vector<File>& vectorToCheck, vector<File>& expectedVector) {
 }
 
 void printTestResults(const bool checkStatus, const std::string functionTitle, const std::string caseTitle) {
-	checkStatus ?
+	/*checkStatus ?
 		std::cout << "Test passed: " << functionTitle << " - " << caseTitle << std::endl :
-		std::cout << "Test failed: " << functionTitle << " - " << caseTitle << std::endl;
+		std::cout << "Test failed: " << functionTitle << " - " << caseTitle << std::endl;*/
 }

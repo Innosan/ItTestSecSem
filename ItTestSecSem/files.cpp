@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <regex>
 #include <vector>
+
 #include "File.h"
 #include "files.h"
-#include <regex>
 
 using namespace std;
 
@@ -48,7 +48,6 @@ vector<File> getFilesFromFile(string fileName) {
 		string token;
 		int fieldCount = 0;
 
-		int id = 0;
 		string title = "";
 		string createdAt = "";
 		int size = 0;
@@ -58,11 +57,10 @@ vector<File> getFilesFromFile(string fileName) {
 		while (getline(ss, token, ',')) {
 			try {
 				switch (fieldCount) {
-				case 0: id = stoi(token); break;
-				case 1: title = token; break;
-				case 2: createdAt = token; break;
-				case 3: size = stoi(token); break;
-				case 4: usage = stoi(token); break;
+				case 0: title = token; break;
+				case 1: createdAt = token; break;
+				case 2: size = stoi(token); break;
+				case 3: usage = stoi(token); break;
 				default:
 					// Handle unexpected field count
 					std::cerr << "Warning: parsing " << fieldCount << " field: " << "wrong number of fileds" << std::endl;
@@ -78,7 +76,7 @@ vector<File> getFilesFromFile(string fileName) {
 		}
 
 		// Create a File object and add it to the vector
-		File file(id, title, createdAt, size, usage);
+		File file(title, createdAt, size, usage);
 		files.push_back(file);
 	}
 
@@ -86,11 +84,17 @@ vector<File> getFilesFromFile(string fileName) {
 	return files;
 };
 
-bool validateFileInput(string fileName, string path) {
-	regex fileNameRegex("^[a-zA-Z0-9_.]+$");
-	regex pathRegex("((?:[^/]*/)*)(.*)");
+bool isFilePathValid(const std::string& filePath) {
 
-	return regex_match(fileName, fileNameRegex) && regex_match(path, pathRegex);
+	// Regular expression to match a valid file path (Windows)
+	regex filePathRegex("^(?:[a-zA-Z]\\:|\\\\)\\\\([^\\\\]+\\\\)*[^\\/:*?\"<>|]+\\.csv$");
+
+	if (!regex_match(filePath, filePathRegex)) {
+		std::cerr << "Error: Invalid file path." << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
 void exportToFile(vector<File> filesToExport) {
@@ -99,16 +103,15 @@ void exportToFile(vector<File> filesToExport) {
 	string path = "";
 
 	do {
-		cout << "Input file name: ";
+		cout << "Input file name (only csv available): ";
 		cin >> fileName;
 
 		cout << "Input full path: \n";
 		cin >> path;
 
-	} while (!validateFileInput(fileName, path));
+	} while (!isFilePathValid(path + fileName));
 
-
-	string fullPath = path + fileName + ".csv";
+	string fullPath = path + fileName;
 
 	// Check if file exists and prompt user for overwrite
 	if (fileExists(fullPath)) {
@@ -119,10 +122,10 @@ void exportToFile(vector<File> filesToExport) {
 	}
 
 	// Write data to file
-	ofstream file(path + fileName + ".csv");
+	ofstream file(path + fileName);
 	if (file.is_open()) {
 		for (File& exportFile : filesToExport) {
-			file << exportFile.getId() << "," << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
+			file << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
 				<< exportFile.getSize() << "," << exportFile.getUsage() << "\n";
 		}
 		file.close();
