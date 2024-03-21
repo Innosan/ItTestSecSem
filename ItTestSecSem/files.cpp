@@ -11,21 +11,19 @@
 
 using namespace std;
 
-// Function to check if a file exists
-bool fileExists(const std::string& filename) {
-	std::ifstream file(filename);
+bool fileExists(const string& filename) {
+	ifstream file(filename);
 	return file.is_open();
 }
 
-// Function to prompt user for overwrite confirmation
-bool confirmOverwrite(const std::string& filename) {
-	std::cout << "File '" << filename << "' already exists." << std::endl;
-	std::cout << "Do you want to overwrite it? (y/n): ";
+bool confirmOverwrite(const string& filename) {
+	cout << "File '" << filename << "' already exists." << endl;
+	cout << "Do you want to overwrite it? (y/n): ";
 
 	char answer;
-	std::cin >> answer;
+	cin >> answer;
 
-	return std::tolower(answer) == 'y';
+	return tolower(answer) == 'y';
 }
 
 vector<File> getFilesFromFile(string fileName) {
@@ -64,12 +62,12 @@ vector<File> getFilesFromFile(string fileName) {
 				case 3: usage = stoi(token); break;
 				default:
 					// Handle unexpected field count
-					std::cerr << "Warning: parsing " << fieldCount << " field: " << "wrong number of fileds" << std::endl;
+					cerr << "Warning: parsing " << fieldCount << " field: " << "wrong number of fileds" << endl;
 				}
 			}
-			catch (const std::invalid_argument& e) {
+			catch (const invalid_argument& e) {
 				// Handle conversion error
-				std::cerr << "Warning: converting field " << fieldCount << ": " << e.what() << std::endl;
+				cerr << "Warning: converting field " << fieldCount << ": " << e.what() << endl;
 				// You can choose to skip the line, continue without the value, or throw an exception
 			}
 
@@ -91,7 +89,7 @@ bool isFilePathValid(const std::string& filePath) {
 	regex filePathRegex("^(?:[a-zA-Z]\\:|\\\\)\\\\([^\\\\]+\\\\)*[^\\/:*?\"<>|]+\\.csv$");
 
 	if (!regex_match(filePath, filePathRegex)) {
-		std::cerr << "Error: Invalid file path." << std::endl;
+		cerr << "Error: Invalid file path." << endl;
 		return false;
 	}
 
@@ -107,17 +105,17 @@ bool isFileNameValid(const std::string& fileName) {
 	regex fileNameReservedChars("[\\/:*?\"<>|]");
 
 	if (!regex_match(fileName, fileNameRegex)) {
-		std::cerr << "Error: Invalid file name." << std::endl;
+		cerr << "Error: Invalid file name." << std::endl;
 		return false;
 	}
 
 	if (regex_match(fileName, fileNameReservedNames)) {
-		std::cerr << "Error: Invalid file name. Using reserved filenames is prohibited!" << std::endl;
+		cerr << "Error: Invalid file name. Using reserved filenames is prohibited!" << std::endl;
 		return false;
 	}
 
 	if (regex_search(fileName, fileNameReservedChars)) {
-		std::cerr << "Error: Invalid file name. Using reserved characters is prohibited!" << std::endl;
+		cerr << "Error: Invalid file name. Using reserved characters is prohibited!" << std::endl;
 		return false;
 	}
 
@@ -144,30 +142,53 @@ string getValidFilePath() {
 	return filepath + filename;
 }
 
+string getOverwriteConfirmation(const string& fullPath) {
+	while (fileExists(fullPath)) {
+		if (confirmOverwrite(fullPath)) {
+			return fullPath;
+		}
+		else {
+			cout << "Please choose another file." << endl;
+			return getValidFilePath();
+		}
+	}
+	return fullPath;
+}
 
 void exportToFile(vector<File> filesToExport) {
 	string fullPath = getValidFilePath();
+	fullPath = getOverwriteConfirmation(fullPath);
 
-	// Check if file exists and prompt user for overwrite
-	if (fileExists(fullPath)) {
-		if (!confirmOverwrite(fullPath)) {
-			std::cerr << "Error: File already exists and user chose not to overwrite." << std::endl;
-			return;
+	// Try to open the file for writing
+	ofstream file(fullPath);
+	if (!file) {
+		cerr << "Error: File is read-only or another error occurred." << endl;
+		file.close();
+
+		// Prompt the user to enter a new path
+		while (true) {
+			cout << "Please enter a new path." << endl;
+			fullPath = getValidFilePath();
+			fullPath = getOverwriteConfirmation(fullPath);
+
+			// Try to open the new file for writing
+			file.open(fullPath);
+			if (file) {
+				break;
+			}
+			else {
+				cerr << "Error: File is read-only or another error occurred." << endl;
+				file.close();
+			}
 		}
 	}
 
 	// Write data to file
-	ofstream file(fullPath);
-	if (file.is_open()) {
-		for (File& exportFile : filesToExport) {
-			file << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
-				<< exportFile.getSize() << "," << exportFile.getUsage() << "\n";
-		}
+	for (File& exportFile : filesToExport) {
+		file << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
+			<< exportFile.getSize() << "," << exportFile.getUsage() << "\n";
+	}
 
-		file.close();
-		std::cout << "Data successfully exported to file: " << fullPath << std::endl;
-	}
-	else {
-		std::cerr << "Error opening file for writing." << std::endl;
-	}
+	file.close();
+	cout << "Data successfully exported to file: " << fullPath << endl;
 };
