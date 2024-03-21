@@ -97,18 +97,9 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 		// Read from file
 		MenuOption(this->READ_FROM_FILE, "Read from file",  [&fileManager]() {
-			bool isPathValid = false;
-			string filename = "";
+			string filepath = getValidFilePath();
 
-			while (!isPathValid) {
-				filename = getStringUserInput("Input full path to file: ");
-
-				if (isFilePathValid(filename)) {
-					isPathValid = true;
-				}
-			}
-
-			vector<File> filesFromFile = getFilesFromFile(filename);
+			vector<File> filesFromFile = getFilesFromFile(filepath);
 
 			if (filesFromFile.empty()) {
 				cerr << "Error reading files from file." << endl;
@@ -116,7 +107,7 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 			else {
 				fileManager->setFiles(filesFromFile);
 
-				cout << "Successfull read from file!" << endl;
+				cout << endl << "Successfull read from file!" << endl << "Readed " << filesFromFile.size() << " file(s)!" << endl;
 			}
 		}),
 

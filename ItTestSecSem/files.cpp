@@ -3,9 +3,11 @@
 #include <sstream>
 #include <regex>
 #include <vector>
+#include <string>
 
 #include "File.h"
 #include "files.h"
+#include "inputs.h"
 
 using namespace std;
 
@@ -37,7 +39,6 @@ vector<File> getFilesFromFile(string fileName) {
 
 	string line;
 	while (getline(inputFile, line)) {
-
 		// Handle empty lines or lines with incorrect formatting
 		if (line.empty()) {
 			cerr << "Warning: Skipped empty line." << endl;
@@ -97,21 +98,55 @@ bool isFilePathValid(const std::string& filePath) {
 	return true;
 }
 
+bool isFileNameValid(const std::string& fileName) {
+	// Regular expression to match a valid file name
+	regex fileNameRegex("^[^\\/:*?\"<>|]+\\.csv$");
+	// Regular expression to match reserved file names in Windows
+	regex fileNameReservedNames("^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9]|con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\..*)?$");
+	// Regular expression to match reserved characters in Windows file names
+	regex fileNameReservedChars("[\\/:*?\"<>|]");
+
+	if (!regex_match(fileName, fileNameRegex)) {
+		std::cerr << "Error: Invalid file name." << std::endl;
+		return false;
+	}
+
+	if (regex_match(fileName, fileNameReservedNames)) {
+		std::cerr << "Error: Invalid file name. Using reserved filenames is prohibited!" << std::endl;
+		return false;
+	}
+
+	if (regex_search(fileName, fileNameReservedChars)) {
+		std::cerr << "Error: Invalid file name. Using reserved characters is prohibited!" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+string getValidFilePath() {
+	bool isPathValid = false;
+	bool isNameValid = false;
+
+	string filename = "";
+	string filepath = "";
+
+	while (!isPathValid && !isNameValid) {
+		filename = getStringUserInput("Input filename (only csv acceptable): ");
+		filepath = getStringUserInput("Input full path to path: ");
+
+		if (isFilePathValid(filepath + filename) && isFileNameValid(filename)) {
+			isPathValid = true;
+			isNameValid = true;
+		}
+	}
+
+	return filepath + filename;
+}
+
+
 void exportToFile(vector<File> filesToExport) {
-	string fileName = "";
-
-	string path = "";
-
-	do {
-		cout << "Input file name (only csv available): ";
-		cin >> fileName;
-
-		cout << "Input full path: \n";
-		cin >> path;
-
-	} while (!isFilePathValid(path + fileName));
-
-	string fullPath = path + fileName;
+	string fullPath = getValidFilePath();
 
 	// Check if file exists and prompt user for overwrite
 	if (fileExists(fullPath)) {
@@ -122,13 +157,15 @@ void exportToFile(vector<File> filesToExport) {
 	}
 
 	// Write data to file
-	ofstream file(path + fileName);
+	ofstream file(fullPath);
 	if (file.is_open()) {
 		for (File& exportFile : filesToExport) {
 			file << exportFile.getTitle() << "," << exportFile.getCreatedAt() << ","
 				<< exportFile.getSize() << "," << exportFile.getUsage() << "\n";
 		}
+
 		file.close();
+		std::cout << "Data successfully exported to file: " << fullPath << std::endl;
 	}
 	else {
 		std::cerr << "Error opening file for writing." << std::endl;
