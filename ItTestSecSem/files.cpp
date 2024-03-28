@@ -96,7 +96,13 @@ bool isFilePathValid(const std::string& filePath) {
 	return true;
 }
 
-bool isFileNameValid(const std::string& fileName) {
+bool isFileNameValid(std::string& fileName) {
+	string lowerCased = fileName;
+
+	for (auto& x : lowerCased) {
+		x = (char)tolower(x);
+	}
+
 	// Regular expression to match a valid file name
 	regex fileNameRegex("^[^\\/:*?\"<>|]+\\.csv$");
 	// Regular expression to match reserved file names in Windows
@@ -104,17 +110,17 @@ bool isFileNameValid(const std::string& fileName) {
 	// Regular expression to match reserved characters in Windows file names
 	regex fileNameReservedChars("[\\/:*?\"<>|]");
 
-	if (!regex_match(fileName, fileNameRegex)) {
+	if (!regex_match(lowerCased, fileNameRegex)) {
 		cerr << "Error: Invalid file name." << std::endl;
 		return false;
 	}
 
-	if (regex_match(fileName, fileNameReservedNames)) {
+	if (regex_match(lowerCased, fileNameReservedNames)) {
 		cerr << "Error: Invalid file name. Using reserved filenames is prohibited!" << std::endl;
 		return false;
 	}
 
-	if (regex_search(fileName, fileNameReservedChars)) {
+	if (regex_search(lowerCased, fileNameReservedChars)) {
 		cerr << "Error: Invalid file name. Using reserved characters is prohibited!" << std::endl;
 		return false;
 	}

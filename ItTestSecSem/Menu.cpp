@@ -57,6 +57,11 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 		// Get files above some size
 		MenuOption(this->FILES_ABOVE_SIZE, "Get files above some size",  [&fileManager]() {
+			if (fileManager->getFiles().size() == 0) {
+				cout << "No files to get!";
+				return;
+			};
+
 			int userSize = getIntUserInput("Input desired size: ");
 			vector<File> newFiles = fileManager->getFilesAboveSize(userSize);
 
@@ -76,6 +81,11 @@ void Menu::initializeMenu(unique_ptr<FileManager>& fileManager) {
 
 		// Get files above some usage
 		MenuOption(this->FILES_ABOVE_USAGE, "Get files above some usage",  [&fileManager]() {
+			if (fileManager->getFiles().size() == 0) {
+				cout << "No files to get!";
+				return;
+			};
+
 			int userUsage = getIntUserInput("Input desired usage:");
 			vector<File> newFiles = fileManager->getFilesAboveUsage(userUsage);
 

@@ -26,17 +26,17 @@ void FileManager::addFile(const File& file) {
 vector<File> FileManager::getSortedFiles() {
 	vector<File> sortedFiles = this->files;
 
-	sort(sortedFiles.begin(), sortedFiles.end(), [](File& a, File& b) {
-		for (size_t i = 0; i < std::min(a.getTitle().size(), b.getTitle().size()); ++i) {
-			// Compare characters, treating whitespaces as equal
-			if (a.getTitle()[i] != b.getTitle()[i]) {
-				return a.getTitle()[i] < b.getTitle()[i];
+	for (size_t i = 0; i < sortedFiles.size(); i++) {
+		for (size_t j = 0; j < sortedFiles.size() - i - 1; j++) {
+			// Compare file titles
+			if (sortedFiles[j].getTitle() > sortedFiles[j + 1].getTitle()) {
+				// Swap files
+				File temp = sortedFiles[j];
+				sortedFiles[j] = sortedFiles[j + 1];
+				sortedFiles[j + 1] = temp;
 			}
 		}
-
-		// Titles are equal up to this point, use length for additional sorting
-		return a.getTitle().size() < b.getTitle().size();
-		});
+	}
 
 	return sortedFiles;
 }
